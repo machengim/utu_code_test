@@ -12,9 +12,9 @@ services:
     - POSTGRES_PASSWORD=abcd1234
     - POSTGRES_DB=bitcoin
     volumes:
-    - ./data:/var/lib/postgresql/data
-    - ./init-sql:/docker-entrypoint-initdb.d/
-    - ./csv:/home/csv
+    - ./config/postgres/data:/var/lib/postgresql/data
+    - ./config/postgres/init-sql:/docker-entrypoint-initdb.d/
+    - ./config/postgres/csv:/home/csv
 
   backend:
     image: node:latest
@@ -27,4 +27,13 @@ services:
     working_dir: /home/backend
     depends_on:
     - postgres
-    command: bash -c "npm install && node index.js"
+    command: sh -c "npm install && node index.js"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    network_mode: "host"
+    restart: "always"
+    volumes:
+    - ./config/nginx/:/etc/nginx/conf.d/
+    - ./frontend:/var/www/html

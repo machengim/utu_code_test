@@ -1,8 +1,12 @@
 const express = require('express');
 const pgp = require('pg-promise')();
+const cors = require('cors');
 const app = express();
-const port = 3000;
-const db = pgp('postgres://utu:abcd1234@localhost:5432/bitcoin');
+const port = 8000;
+//const db = pgp('postgres://utu:abcd1234@localhost:5432/bitcoin');
+const db = pgp('postgres://utu:abcd1234@postgres/bitcoin');
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     let sql = `SELECT c1.* FROM coin AS c1 INNER JOIN 

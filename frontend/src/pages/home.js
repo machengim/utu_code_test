@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
-const BaseUrl = 'http://localhost:8000/';
+//const BaseUrl = 'http://localhost:8000/';
+const BaseUrl = 'http://34.116.100.202/api/';
 
 export default function App() {
     return (
