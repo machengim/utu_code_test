@@ -15,3 +15,16 @@ services:
     - ./data:/var/lib/postgresql/data
     - ./init-sql:/docker-entrypoint-initdb.d/
     - ./csv:/home/csv
+
+  backend:
+    image: node:latest
+    container_name: backend
+    restart: "always"
+    ports:
+    - "8000:8000"
+    volumes:
+    - ./backend:/home/backend
+    working_dir: /home/backend
+    depends_on:
+    - postgres
+    command: bash -c "npm install && node index.js"
